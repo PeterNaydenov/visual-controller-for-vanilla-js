@@ -1,10 +1,19 @@
+/**
+ *  Demo application for Visual Controller for Vanilla JS
+ *  
+ *  Shows all specifics of visual controller:
+ *  - How to inject dependencies into apps;
+ *  - How to publish apps;
+ *  - How to destroy apps;
+ *  - How to provide API for manipulating apps;
+ *  - App structure compotable with visual controller;
+ */
+
 import VisualController from '/src/main.js'
 import Hello from '/demo/app.js'
 
 var html = VisualController ({
-  utils: {
-            capitalize: ( str ) => str.charAt(0).toUpperCase() + str.slice (1)
-        }
+            capitalize: ( str ) => str.toUpperCase ()
   })
 
 

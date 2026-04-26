@@ -1,5 +1,6 @@
 function Hello ( props ) {
-    const { container, data, setupUpdates } = props;
+    const { container, data, setupUpdates, dependencies } = props;
+    const { capitalize } = dependencies;
     /**
      * Props will contain a structure to:
      * - inject dependencies, 
@@ -9,7 +10,8 @@ function Hello ( props ) {
 
     // Use some variables for local state maintance:
     let
-         message = data.greeting || 'Hello'
+         hasCaps = capitalize instanceof Function
+       , message = ( hasCaps ? capitalize ( data.greeting ): data.greeting ) || 'Hello'
        , count = 0
        ;
 
@@ -41,8 +43,7 @@ function Hello ( props ) {
 
 
 function destroyApp () {
-    // Remove the app's state to eliminate memory leaks if needed.
-    
+    // Remove the app's state to eliminate memory leaks if needed...
   }
 
 
