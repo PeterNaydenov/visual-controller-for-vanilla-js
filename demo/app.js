@@ -21,8 +21,7 @@ function Hello ( props ) {
       ;
     
     button.addEventListener ( 'click', () => {
-              count++
-              counter.textContent = 'Count: ' + count
+              counter.textContent = `Count: ${++count}`
         })
 
     setupUpdates ({
@@ -31,8 +30,7 @@ function Hello ( props ) {
                             title.textContent = message
                       },
                   increment: () => {
-                            count++
-                            counter.textContent = 'Count: ' + count
+                            counter.textContent = `Count: ${++count}`
                         },
                   getCount: () => {
                             return count
