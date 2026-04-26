@@ -8,9 +8,9 @@ export type AppDefinition = {
      */
     start: Function;
     /**
-     * - Destroy function for cleanup
+     * - Optional destroy function for cleanup
      */
-    destroy: Function;
+    destroy?: Function;
 };
 /**
  * Visual Controller for Vanilla JS
@@ -21,7 +21,7 @@ export type AppDefinition = {
  * App definition structure
  * @typedef {Object} AppDefinition
  * @property {Function} start - Start function that receives props
- * @property {Function} destroy - Destroy function for cleanup
+ * @property {Function} [destroy] - Optional destroy function for cleanup
  */
 declare function VisualController(dependencies?: {}): {
     publish: (appDefinition: AppDefinition, data: any, id: string) => any;

@@ -22,7 +22,7 @@ import askForPromise from 'ask-for-promise'
  * App definition structure
  * @typedef {Object} AppDefinition
  * @property {Function} start - Start function that receives props
- * @property {Function} destroy - Destroy function for cleanup
+ * @property {Function} [destroy] - Optional destroy function for cleanup
  */
 
 function VisualController ( dependencies = {}) {
@@ -40,7 +40,7 @@ function VisualController ( dependencies = {}) {
      * @param {string} id - Id of the container
      * @returns {*} - Promise that resolves to update methods
      */
-    function publish (appDefinition, data, id) {
+    function publish ( appDefinition, data, id ) {
                 data = data || {}
                 
                 const 
@@ -48,18 +48,12 @@ function VisualController ( dependencies = {}) {
                         , endTask = askForPromise ()
                         ;
                 
-                if ( !appDefinition || !appDefinition.start ) {
+if ( !appDefinition || !appDefinition.start ) {
                         console.error('Error: App definition with start function is required')
                         endTask.done(false)
                         return endTask.promise
                    }
-                
-                if ( !appDefinition.destroy ) {
-                        console.error ( 'Error: App definition with destroy function is required' )
-                        endTask.done ( false )
-                        return endTask.promise
-                   }
-                
+                 
                 if ( !node ) {
                         console.error('Can\'t find node with id: "' + id + '"')
                         endTask.done(false)
@@ -161,4 +155,7 @@ function VisualController ( dependencies = {}) {
 }
 
 
+
 export default VisualController
+
+
