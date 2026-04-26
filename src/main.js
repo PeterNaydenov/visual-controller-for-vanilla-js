@@ -26,7 +26,7 @@ import askForPromise from 'ask-for-promise'
  */
 
 function VisualController ( dependencies = {}) {
-        
+
         /** @type {Object.<string, AppDefinition>} */
         var cache = {}
         /** @type {Object.<string, Object>} */
@@ -43,28 +43,30 @@ function VisualController ( dependencies = {}) {
     function publish (appDefinition, data, id) {
                 data = data || {}
                 
-                var node = document.getElementById(id)
-                var endTask = askForPromise()
+                const 
+                          node = document.getElementById ( id )
+                        , endTask = askForPromise ()
+                        ;
                 
-                if (!appDefinition || !appDefinition.start) {
+                if ( !appDefinition || !appDefinition.start ) {
                         console.error('Error: App definition with start function is required')
                         endTask.done(false)
                         return endTask.promise
-                }
+                   }
                 
-                if (!appDefinition.destroy) {
-                        console.error('Error: App definition with destroy function is required')
-                        endTask.done(false)
+                if ( !appDefinition.destroy ) {
+                        console.error ( 'Error: App definition with destroy function is required' )
+                        endTask.done ( false )
                         return endTask.promise
-                }
+                   }
                 
-                if (!node) {
+                if ( !node ) {
                         console.error('Can\'t find node with id: "' + id + '"')
                         endTask.done(false)
                         return endTask.promise
                 }
                 
-                if (cache[id]) {
+                if ( cache[id] ) {
                         destroy(id)
                 }
                 
