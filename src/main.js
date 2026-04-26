@@ -25,10 +25,11 @@ import askForPromise from 'ask-for-promise'
  * @property {Function} destroy - Destroy function for cleanup
  */
 
-function VisualController ( dependencies ) {
-        dependencies = dependencies || {}
+function VisualController ( dependencies = {}) {
         
+        /** @type {Object.<string, AppDefinition>} */
         var cache = {}
+        /** @type {Object.<string, Object>} */
         var updateInterface = {}
 
 
