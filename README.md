@@ -36,30 +36,27 @@ function myApp ( props ) {
         var data = props.data
         var setupUpdates = props.setupUpdates
         
-        // Create your DOM elements
-        var button = document.createElement('button')
-        button.textContent = 'Click me'
-        container.appendChild(button)
+        // Create your DOM elements (using innerHTML for simplicity)
+        container.innerHTML = '<button>Click me</button>'
+        
+        var button = container.querySelector('button')
         
         // Register update methods for external control
         setupUpdates({
                 increment: function() {
                         // update logic here
-                        console.log('Button clicked')
+                        console.log ( 'Button clicked' )
                     }
                 , getValue: function() {
                         return button.textContent
                     }
             })
-        
-        // Return cleanup handle (required for destroy function)
-        return { button: button }
     }
 
 
-function destroyApp(handle) {
-        // handle is the object returned by start function
-        handle.button.remove()
+function destroyApp() {
+        // Optional cleanup function
+        // Called before container is cleared
     }
 
 
