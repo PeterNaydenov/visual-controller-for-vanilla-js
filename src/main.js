@@ -17,6 +17,14 @@ import askForPromise from 'ask-for-promise'
  * @param {Object} [dependencies={}] - Dependencies that should be available for all apps
  * @returns {Object} - Object with methods: publish, destroy, getApp, has
  */
+
+/**
+ * App definition structure
+ * @typedef {Object} AppDefinition
+ * @property {Function} start - Start function that receives props
+ * @property {Function} destroy - Destroy function
+ */
+
 function VisualController ( dependencies ) {
         dependencies = dependencies || {}
         
@@ -24,12 +32,12 @@ function VisualController ( dependencies ) {
         var updateInterface = {}
 
 
-    /**
+/**
      * Publish a vanilla JS app
-     * @param {Object} appDefinition - App definition with start and destroy functions
-     * @param {Object} [data={}] - Data for the app
+     * @param {AppDefinition} appDefinition - App definition with start and destroy functions
+     * @param {Object} data - Data for the app
      * @param {string} id - Id of the container
-     * @returns {Promise} - Promise that resolves to update methods
+     * @returns {*} - Promise that resolves to update methods
      */
     function publish (appDefinition, data, id) {
                 data = data || {}
@@ -39,6 +47,12 @@ function VisualController ( dependencies ) {
                 
                 if (!appDefinition || !appDefinition.start) {
                         console.error('Error: App definition with start function is required')
+                        endTask.done(false)
+                        return endTask.promise
+                }
+                
+                if (!appDefinition.destroy) {
+                        console.error('Error: App definition with destroy function is required')
                         endTask.done(false)
                         return endTask.promise
                 }
