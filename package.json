@@ -1,0 +1,55 @@
+{
+  "name": "@peter.naydenov/visual-controller-for-vanilla-js",
+  "description": "Tool for building micro-frontends(MFE) based on vanilla JavaScript - Start multiple vanilla JS applications on the same HTML page and control them",
+  "version": "1.0.0",
+  "license": "MIT",
+  "author": "Peter Naydenov",
+  "type": "module",
+  "main": "src/main.js",
+  "module": "dist/visual-controller-for-vanilla-js.esm.js",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "sideEffects": false,
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "exports": {
+    ".": {
+      "import": "dist/visual-controller-for-vanilla-js.esm.js",
+      "require": "dist/visual-controller-for-vanilla-js.cjs"
+    }
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "cover": "vitest run --coverage"
+  },
+  "dependencies": {
+    "ask-for-promise": "^3.1.0"
+  },
+  "devDependencies": {
+    "@vitest/coverage-v8": "^4.1.5",
+    "jsdom": "^29.0.2",
+    "vite": "^8.0.0",
+    "vitest": "^4.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PeterNaydenov/visual-controller-for-vanilla-js.git"
+  },
+  "homepage": "https://github.com/PeterNaydenov/visual-controller-for-vanilla-js#readme",
+  "bugs": {
+    "url": "https://github.com/PeterNaydenov/visual-controller-for-vanilla-js/issues"
+  },
+  "keywords": [
+    "vanilla",
+    "javascript",
+    "micro-frontend",
+    "MFE",
+    "visual controller"
+  ]
+}
