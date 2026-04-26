@@ -1,11 +1,19 @@
 function Hello ( props ) {
-    var container = props.container
-    var data = props.data || {}
-    var setupUpdates = props.setupUpdates
-  
-    var message = data.greeting || 'Hello'
-    var count = 0
+    const { container, data, setupUpdates } = props;
+    /**
+     * Props will contain a structure to:
+     * - inject dependencies, 
+     * - provide data for initial render
+     * - 'setupUpdates' is a function to expose methods externally ( updates or other manipulations of existing app )
+     */
 
+    // Use some variables for local state maintance:
+    let
+         message = data.greeting || 'Hello'
+       , count = 0
+       ;
+
+    // Render the app:
     container.innerHTML = `
       <div class="hello">
                   <h2> ${message} </h2>
@@ -20,27 +28,22 @@ function Hello ( props ) {
       , title = container.querySelector ( 'h2' )
       ;
     
-    button.addEventListener ( 'click', () => {
-              counter.textContent = `Count: ${++count}`
-        })
+    button.addEventListener ( 'click', () =>  counter.textContent = `Count: ${++count}` )
 
+    // Expose updates:
     setupUpdates ({
-                  changeMessage: ( newMsg ) => {
-                            message = newMsg
-                            title.textContent = message
-                      },
-                  increment: () => {
-                            counter.textContent = `Count: ${++count}`
-                        },
-                  getCount: () => {
-                            return count
-                        }
+                  changeMessage: ( newMsg ) =>  title.textContent = newMsg,
+                  increment: () => counter.textContent = `Count: ${++count}`,
+                  getCount: () => count
             })
   } // Hello func.
 
 
 
-function destroyApp () {}
+function destroyApp () {
+    // Remove the app's state to eliminate memory leaks if needed.
+    
+  }
 
 
 
