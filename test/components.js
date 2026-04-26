@@ -43,8 +43,36 @@ function NoUpdates(props) {
   setupUpdates({})
 }
 
+function ErrorApp(props) {
+  var container = props.container
+  var setupUpdates = props.setupUpdates
+
+  var div = document.createElement('div')
+  div.textContent = 'Error app'
+  container.appendChild(div)
+
+  setupUpdates({})
+
+  throw new Error('Intentional error')
+}
+
+function ErrorDestroyApp(props) {
+  var container = props.container
+  var setupUpdates = props.setupUpdates
+
+  var div = document.createElement('div')
+  div.textContent = 'Error destroy app'
+  container.appendChild(div)
+
+  setupUpdates({})
+}
+
+function destroyError() {
+  throw new Error('Destroy error')
+}
+
 export default {
   start: Test,
   destroy: destroyTest
 }
-export { Test as TestFn, NoUpdates as NoUpdatesFn }
+export { Test as TestFn, NoUpdates as NoUpdatesFn, ErrorApp as ErrorAppFn, ErrorDestroyApp as ErrorDestroyAppFn, destroyError as destroyErrorFn }

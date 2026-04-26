@@ -1,8 +1,9 @@
 import { describe, it, expect, beforeEach } from 'vitest'
 import VisualController from "../src/main.js"
-import TestDef, { NoUpdates } from './components.js'
+import TestDef, { NoUpdates, ErrorAppFn, ErrorDestroyAppFn, destroyErrorFn } from './components.js'
 var Test = { start: TestDef.start, destroy: TestDef.destroy }
 var NoUpdatesDef = { start: NoUpdates }
+var ErrorAppDef = { start: ErrorAppFn, destroy: destroyErrorFn }
 import fs from 'fs'
 import path from 'path'
 
@@ -94,6 +95,58 @@ describe ( 'Visual controller for Vanilla JS', () => {
         const result = vc.destroy('non-existent')
         
         expect(result).toBe(false)
+    })
+
+
+    it ( 'Method "publish" returns false when container not found', async () => {
+        const vc = VisualController({})
+
+        const result = await vc.publish(Test, {}, 'non-existent')
+        
+        expect(result).toBe(false)
+    })
+
+
+    it ( 'Method "publish" destroys existing app and replaces it', async () => {
+        const vc = VisualController({})
+
+        await vc.publish(Test, { greeting: 'First' }, 'root')
+        expect(vc.has('root')).toBe(true)
+        
+        await vc.publish(Test, { greeting: 'Second' }, 'root')
+        
+        const app = vc.getApp('root')
+        expect(app).toBeTruthy()
+    })
+
+
+    it ( 'Method "publish" handles start function error', async () => {
+        const vc = VisualController({})
+
+        const result = await vc.publish(ErrorAppDef, {}, 'root')
+        
+        expect(result).toBe(false)
+    })
+
+
+    it ( 'Method "destroy" calls app destroy function', async () => {
+        const vc = VisualController({})
+
+        await vc.publish(Test, {}, 'root')
+        const result = vc.destroy('root')
+        
+        expect(result).toBe(true)
+    })
+
+
+    it ( 'Method "destroy" handles destroy error gracefully', async () => {
+        var ErrorDestroyDef = { start: ErrorDestroyAppFn, destroy: destroyErrorFn }
+        const vc = VisualController({})
+
+        await vc.publish(ErrorDestroyDef, {}, 'root')
+        const result = vc.destroy('root')
+        
+        expect(result).toBe(true)
     })
 
 
