@@ -4,7 +4,7 @@ function t(t = {}) {
 	var n = {}, r = {};
 	function i(i, o, s) {
 		o ||= {};
-		var c = document.getElementById(s), l = e();
+		let c = document.getElementById(s), l = e();
 		if (!i || !i.start) return console.error("Error: App definition with start function is required"), l.done(!1), l.promise;
 		if (!i.destroy) return console.error("Error: App definition with destroy function is required"), l.done(!1), l.promise;
 		if (!c) return console.error("Can't find node with id: \"" + s + "\""), l.done(!1), l.promise;
