@@ -16,35 +16,31 @@ var getCountBtn = document.getElementById('getCount')
 var destroyBtn = document.getElementById('destroy')
 var resultTextBlock = document.getElementById('resultText')
 
-html.publish(Hello, { greeting: 'Hi from Vanilla JS!' }, 'app')
-  .then(function(updates) {
-    console.log('App loaded with updates:', updates)
-    hasTextBlock.textContent = html.has('app')
-  })
+html.publish ( Hello, { greeting: 'Hi from Vanilla JS!' }, 'app' )
+  .then ( updates => {
+              console.log ( 'App loaded with updates:', updates )
+              hasTextBlock.textContent = html.has ( 'app' )
+    })
 
-updateMsgBtn.addEventListener('click', function() {
-  var app = html.getApp('app')
-  if (app) {
-    app.changeMessage('Updated at ' + new Date().toLocaleTimeString())
-  }
-})
+updateMsgBtn.addEventListener ( 'click', () => {
+              let app = html.getApp('app')
+              if ( app )  app.changeMessage ( `Updated at ${ new Date().toLocaleTimeString()}` )
+    })
 
-incrementBtn.addEventListener('click', function() {
-  var app = html.getApp('app')
-  if (app) {
-    app.increment()
-  }
-})
+incrementBtn.addEventListener ( 'click', () => {
+              let app = html.getApp('app')
+              if ( app )  app.increment()
+    })
 
-getCountBtn.addEventListener('click', function() {
-  var app = html.getApp('app')
-  if (app) {
-    resultTextBlock.textContent = app.getCount()
-  }
-})
+getCountBtn.addEventListener('click', () => {
+              let app = html.getApp ( 'app' )
+              if ( app )  resultTextBlock.textContent = app.getCount ()
+    })
 
-destroyBtn.addEventListener('click', function() {
-  var result = html.destroy('app')
-  resultTextBlock.textContent = 'Destroyed: ' + result
-  hasTextBlock.textContent = html.has('app')
-})
+
+
+destroyBtn.addEventListener ( 'click', () => {
+              const result = html.destroy ( 'app' )
+              resultTextBlock.textContent = 'Destroyed: ' + result
+              hasTextBlock.textContent = html.has ( 'app' )
+    })

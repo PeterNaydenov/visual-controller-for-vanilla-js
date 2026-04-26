@@ -1,4 +1,4 @@
-function Hello(props) {
+function Hello ( props ) {
   var container = props.container
   var data = props.data
   var setupUpdates = props.setupUpdates
