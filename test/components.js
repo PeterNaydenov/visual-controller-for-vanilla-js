@@ -6,9 +6,6 @@ function Test(props) {
   var message = data.greeting || 'Hello'
   var count = 0
 
-  var message = data.greeting || 'Hello'
-  var count = 0
-
   var ins = document.createElement('div')
   ins.id = 'ins'
   ins.textContent = message
@@ -30,13 +27,9 @@ function Test(props) {
       return count
     }
   })
-
-  return { ins: ins, btn: btn }
 }
 
-function destroyTest(handle) {
-  handle.ins.remove()
-  handle.btn.remove()
+function destroyTest() {
 }
 
 function NoUpdates(props) {
@@ -48,8 +41,6 @@ function NoUpdates(props) {
   container.appendChild(div)
 
   setupUpdates({})
-
-  return { div: div }
 }
 
 export default {

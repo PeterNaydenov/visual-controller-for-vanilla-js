@@ -41,12 +41,9 @@ function Hello(props) {
       return count
     }
   })
-
-  return { wrapper: wrapper, title: title, counter: counter }
 }
 
-function destroyApp(handle) {
-  handle.wrapper.remove()
+function destroyApp() {
 }
 
 export default {

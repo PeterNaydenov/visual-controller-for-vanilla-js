@@ -22,7 +22,7 @@ import askForPromise from 'ask-for-promise'
  * App definition structure
  * @typedef {Object} AppDefinition
  * @property {Function} start - Start function that receives props
- * @property {Function} destroy - Destroy function
+ * @property {Function} destroy - Destroy function for cleanup
  */
 
 function VisualController ( dependencies ) {
@@ -32,7 +32,7 @@ function VisualController ( dependencies ) {
         var updateInterface = {}
 
 
-/**
+    /**
      * Publish a vanilla JS app
      * @param {AppDefinition} appDefinition - App definition with start and destroy functions
      * @param {Object} data - Data for the app
@@ -68,6 +68,7 @@ function VisualController ( dependencies ) {
                 }
                 
                 var updates = {}
+                /** @param {Object} methods */
                 var setupUpdates = function(methods) {
                         updates = methods || {}
                 }
@@ -81,11 +82,8 @@ function VisualController ( dependencies ) {
                 }
                 
                 try {
-                        var cleanupHandle = appDefinition.start(props)
-                        cache[id] = {
-                                definition: appDefinition,
-                                cleanupHandle: cleanupHandle
-                        }
+                        appDefinition.start(props)
+                        cache[id] = appDefinition
                         updateInterface[id] = updates
                 } catch (e) {
                         console.error('Error starting app:', e)
@@ -95,7 +93,7 @@ function VisualController ( dependencies ) {
                 
                 endTask.done(updates)
                 return endTask.promise
-            }
+        }
 
 
     /**
@@ -104,28 +102,25 @@ function VisualController ( dependencies ) {
      * @returns {boolean} - Returns true on success and false on failure
      */
     function destroy (id) {
-                var item = cache[id]
-                if (!item) {
-                        return false
-                }
-                
-                var node = document.getElementById(id)
-                
-                if (item.definition && item.definition.destroy && item.cleanupHandle) {
-                        try {
-                                item.definition.destroy(item.cleanupHandle)
-                        } catch (e) {
-                                console.error('Error destroying app:', e)
+                var keys = Object.keys(cache)
+                if (keys.indexOf(id) !== -1) {
+                        var appDef = cache[id]
+                        if (appDef && appDef.destroy) {
+                                try {
+                                        appDef.destroy()
+                                } catch (e) {
+                                        console.error('Error destroying app:', e)
+                                }
                         }
+                        var node = document.getElementById(id)
+                        if (node) {
+                                node.innerHTML = ''
+                        }
+                        delete cache[id]
+                        delete updateInterface[id]
+                        return true
                 }
-                
-                if (node) {
-                        node.innerHTML = ''
-                }
-                
-                delete cache[id]
-                delete updateInterface[id]
-                return true
+                return false
             }
 
 
