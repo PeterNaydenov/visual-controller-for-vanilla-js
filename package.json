@@ -1,7 +1,7 @@
 {
   "name": "@peter.naydenov/visual-controller-for-vanilla-js",
   "description": "Tool for building micro-frontends(MFE) based on vanilla JavaScript - Start multiple vanilla JS applications on the same HTML page and control them",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "license": "MIT",
   "author": "Peter Naydenov",
   "type": "module",
